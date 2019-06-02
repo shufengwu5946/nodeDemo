@@ -1,12 +1,13 @@
 var http = require("http");
 let fs = require("fs");
 let path = require("path");
+let template = require("art-template");
 const server = http.createServer();
 const BASE_URL = "F:/nodeWorkplace/www";
 server.on("request", (req, res) => {
   fs.readFile(path.join(__dirname, "./template.html"), (err, data) => {
     if (err) {
-      res.end("404 template.html");
+      res.end("404 can not find template.html");
       return;
     }
 
@@ -36,35 +37,24 @@ server.on("request", (req, res) => {
         }
       });
     } else {
+      console.log(data);
+
       fs.readdir(BASE_URL + req.url, { withFileTypes: true }, (err, files) => {
         if (err) {
-          res.end("404 www");
+          res.end("404 can not find dir www");
           return;
         }
-        console.log(files);
 
-        let item = (name = "", size = "100", time = "2019-01-01 00:00:00") => `
-            <tr>
-                <td style="display:flex; flex-direction:row; align-items:center;">
-                    <a href="${name}">
-                        <b style="line-height:30px;">${name}</b>
-                    </a>
-                </td>
-                <td>${size}</td>
-                <td>${time}</td>
-            </tr>
-          `;
-        let content = "";
-        files.forEach(element => {
-          content += item(
-            element.isDirectory() ? `${element.name}/` : element.name
-          );
+        let result = template.render(data.toString(), {
+          title: req.url,
+          list: files.map(item => {
+            const value = item;
+            value.name = value.isDirectory() ? `${value.name}/` : value.name;
+            return value;
+          })
         });
-        let result = data
-          .toString()
-          .replace("^_^_^_^", content)
-          .replace("^_^_^_path", req.url)
-          .replace("^_^_^_path", req.url);
+
+        console.log(result);
         res.setHeader("Content-Type", "text/html");
         res.end(result);
       });
