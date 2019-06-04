@@ -1,0 +1,10 @@
+.title {
+  color: red;
+}
+
+.goPostButton {
+  border: 0;
+  padding: 6px;
+  background-color: green;
+  color: white;
+}

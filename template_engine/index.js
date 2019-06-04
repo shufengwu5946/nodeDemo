@@ -3,7 +3,7 @@ let fs = require("fs");
 let path = require("path");
 let template = require("art-template");
 const server = http.createServer();
-const BASE_URL = "F:/nodeWorkplace/www";
+const BASE_URL = path.join(__dirname, "../www");
 server.on("request", (req, res) => {
   fs.readFile(path.join(__dirname, "./template.html"), (err, data) => {
     if (err) {
