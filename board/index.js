@@ -2,6 +2,7 @@ let http = require("http");
 let fs = require("fs");
 let path = require("path");
 let template = require("art-template");
+let url = require("url");
 
 // console.log("http");
 let comments = [
@@ -34,7 +35,9 @@ let comments = [
 
 http
   .createServer((request, response) => {
-    if (request.url === "/") {
+    // 解析url
+    const urlObj = url.parse(request.url, true);
+    if (urlObj.pathname === "/") {
       fs.readFile(path.join(__dirname, "./views/home.html"), (err, data) => {
         if (err) {
           response.end("404 Not Found");
@@ -45,7 +48,20 @@ http
         });
         response.end(result);
       });
-    } else if (request.url.startsWith("/post")) {
+    } else if (urlObj.pathname === "/add_comment") {
+      comments.push({
+        name: urlObj.query.name,
+        content: urlObj.query.content,
+        time: "2019-01-01 00:00:00"
+      });
+
+      
+      // 重定向
+      response.statusCode=302;
+      response.setHeader('Location','/');
+      response.end();
+
+    } else if (urlObj.pathname === "/post") {
       fs.readFile(path.join(__dirname, "./views/post.html"), (err, data) => {
         if (err) {
           console.log("404 Not Found");
@@ -54,7 +70,7 @@ http
         response.end(data);
       });
       //处理静态资源
-    } else if (request.url.startsWith("/public")) {
+    } else if (urlObj.pathname.startsWith("/public")) {
       fs.readFile(path.join(__dirname, `.${request.url}`), (err, data) => {
         if (err) {
           console.log("404 Not Found");
