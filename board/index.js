@@ -1,8 +1,36 @@
 let http = require("http");
 let fs = require("fs");
 let path = require("path");
+let template = require("art-template");
 
 // console.log("http");
+let comments = [
+  {
+    name: "wsf",
+    content: "1111111111111111111111111111111111111",
+    time: "2019-01-01 00:00:00"
+  },
+  {
+    name: "wsf",
+    content: "22222",
+    time: "2019-01-01 00:00:00"
+  },
+  {
+    name: "wsf",
+    content: "333333333333333333",
+    time: "2019-01-01 00:00:00"
+  },
+  {
+    name: "wsf",
+    content: "4444444444444444444444444444444444444444444",
+    time: "2019-01-01 00:00:00"
+  },
+  {
+    name: "wsf",
+    content: "555555555555555555555555555555555555555",
+    time: "2019-01-01 00:00:00"
+  }
+];
 
 http
   .createServer((request, response) => {
@@ -12,7 +40,10 @@ http
           response.end("404 Not Found");
           return;
         }
-        response.end(data);
+        let result = template.render(data.toString(), {
+          comments: comments
+        });
+        response.end(result);
       });
     } else if (request.url.startsWith("/post")) {
       fs.readFile(path.join(__dirname, "./views/post.html"), (err, data) => {
@@ -22,6 +53,7 @@ http
         }
         response.end(data);
       });
+      //处理静态资源
     } else if (request.url.startsWith("/public")) {
       fs.readFile(path.join(__dirname, `.${request.url}`), (err, data) => {
         if (err) {

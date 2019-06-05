@@ -14,6 +14,11 @@
     <button class="goPostButton" onclick="window.location.href='/post.html'">
       发表留言
     </button>
+    <ul class="commentList">
+      {{each comments}}
+      <li class="commentItem">{{ $value.name }}说：{{ $value.content }} ({{ $value.time }})</li>
+      {{/each}}
+    </ul>
     <script src="/public/js/home.js"></script>
   </body>
 </html>

@@ -8,3 +8,14 @@
   background-color: green;
   color: white;
 }
+
+.commentItem {
+  border: 1px gray solid;
+  width: 500px;
+  margin-bottom: -1px;
+  list-style-type: none;
+}
+
+.commentList {
+  padding-left: 0px;
+}
