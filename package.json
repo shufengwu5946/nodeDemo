@@ -1,7 +1,9 @@
 {
   "dependencies": {
     "art-template": "^4.13.2",
+    "exceljs": "^1.12.1",
     "get-pixels": "^3.3.2",
+    "moment": "^2.24.0",
     "xlsx": "^0.14.3"
   }
 }
