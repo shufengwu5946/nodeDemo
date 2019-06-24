@@ -1,4 +1,5 @@
 const express = require("express");
+const bodyParser = require('body-parser')
 const app = express();
 
 let http = require("http");
@@ -6,6 +7,13 @@ let fs = require("fs");
 let path = require("path");
 let template = require("art-template");
 let url = require("url");
+
+app.engine('html', require('express-art-template'));
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
 
 // console.log("http");
 let comments = [
@@ -94,27 +102,24 @@ let comments = [
 //   });
 
 app.get("/", (req, res) => {
-  fs.readFile(path.join(__dirname, "./views/home.html"), (err, data) => {
-    if (err) {
-      res.send("404 Not Found");
-      return;
-    }
-    let result = template.render(data.toString(), {
-      comments: comments
-    });
-    res.send(result);
+  res.render("home.html",{
+    comments: comments
   });
 });
 
-app.get("/add_comment", (req, res) => {
+app.get("/post", (req, res) => {
+  res.render("post.html");
+});
+
+app.post("/post", (req, res) => {
   comments.push({
-    name: urlObj.query.name,
-    content: urlObj.query.content,
+    name: req.body.name,
+    content: req.body.content,
     time: "2019-01-01 00:00:00"
   });
 
   // 重定向
-  response.redirect(302, "/");
+  res.redirect(302, "/");
 });
 
 app.use("/public", express.static(path.join(__dirname, "public")));
