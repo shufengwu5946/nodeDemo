@@ -40,7 +40,8 @@ exports.add = (student, callback) => {
       return;
     }
     const dataObj = JSON.parse(data.toString());
-    const maxIndex = _.maxBy(dataObj.students, "id").id;
+    const maxIndex =
+      dataObj.students.length > 0 ? _.maxBy(dataObj.students, "id").id : 0;
     dataObj.students.push({
       ...student,
       id: maxIndex + 1

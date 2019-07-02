@@ -133,7 +133,11 @@
                 <tr>
                   <td>{{ $value.id }}</td>
                   <td>{{ $value.name }}</td>
-                  <td>{{ $value.gender }}</td>
+                  {{ if $value.gender==1 }}
+                  <td>男</td>
+                  {{ else }}
+                  <td>女</td>
+                  {{ /if  }}
                   <td>{{ $value.age }}</td>
                   <td>{{ $value.address }}</td>
                   <td>
