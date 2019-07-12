@@ -18,7 +18,7 @@ var blogSchema = new Schema({
 var Blog = mongoose.model("Blog", blogSchema);
 var blog = new Blog({
   title: "my first blog",
-  author: "wsf",
+  author: "sfw",
   body: "henghenghahei",
   comments: [
     { body: "comments-1", date: new Date() },
@@ -31,10 +31,36 @@ var blog = new Blog({
   }
 });
 
-blog
-  .save()
-  .then(() => console.log("blog"))
-  .catch(error => {
-    console.log("save fail");
-    console.log(error);
-  });
+/**
+ * 插入数据
+ */
+// blog
+//   .save()
+//   .then(() => console.log("blog"))
+//   .catch(error => {
+//     console.log("save fail");
+//     console.log(error);
+//   });
+
+/**
+ * 查询数据
+ */
+Blog.find({author:'sfw'},(err, res) => {
+  if (err) {
+    console.log("查询失败");
+    return;
+  }
+  console.log(res);
+});
+
+/**
+ * 查询单个数据
+ */
+
+// Blog.findOne({author:'sfw'},(err, res) => {
+//   if (err) {
+//     console.log("查询失败");
+//     return;
+//   }
+//   console.log(res);
+// });
