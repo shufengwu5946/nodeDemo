@@ -17,7 +17,7 @@ var blogSchema = new Schema({
 
 var Blog = mongoose.model("Blog", blogSchema);
 var blog = new Blog({
-  title: "my first blog",
+  title: "my second blog",
   author: "sfw",
   body: "henghenghahei",
   comments: [
@@ -45,13 +45,22 @@ var blog = new Blog({
 /**
  * 查询数据
  */
-Blog.find({author:'sfw'},(err, res) => {
-  if (err) {
-    console.log("查询失败");
-    return;
-  }
-  console.log(res);
-});
+
+// Blog.find((err, res) => {
+//   if (err) {
+//     console.log("查询失败");
+//     return;
+//   }
+//   console.log(res);
+// });
+
+// Blog.find({ author: "wsf" }, (err, res) => {
+//   if (err) {
+//     console.log("查询失败");
+//     return;
+//   }
+//   console.log(res);
+// });
 
 /**
  * 查询单个数据
@@ -64,3 +73,36 @@ Blog.find({author:'sfw'},(err, res) => {
 //   }
 //   console.log(res);
 // });
+
+/**
+ * 删除
+ */
+// Blog.remove({ author: "sfw" }, err => {
+//   if (err) {
+//     console.log("删除失败");
+//     return;
+//   }
+//   console.log("删除成功");
+// });
+
+/**
+ * 更新
+ */
+Blog.update(
+  { author: "wsf" },
+  { title: "blog title" },
+  { multi: true },
+  err => {
+    if (err) {
+      console.log("更新失败");
+      return;
+    }
+    Blog.find((err, res) => {
+      if (err) {
+        console.log("查询失败");
+        return;
+      }
+      console.log(res);
+    });
+  }
+);
