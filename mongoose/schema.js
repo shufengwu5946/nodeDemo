@@ -62,6 +62,14 @@ var blog = new Blog({
 //   console.log(res);
 // });
 
+Blog.findOne({ author: "wsf" }, (err, res) => {
+  if (err) {
+    console.log("查询失败");
+    return;
+  }
+  console.log(res);
+});
+
 /**
  * 查询单个数据
  */
@@ -88,21 +96,21 @@ var blog = new Blog({
 /**
  * 更新
  */
-Blog.update(
-  { author: "wsf" },
-  { title: "blog title" },
-  { multi: true },
-  err => {
-    if (err) {
-      console.log("更新失败");
-      return;
-    }
-    Blog.find((err, res) => {
-      if (err) {
-        console.log("查询失败");
-        return;
-      }
-      console.log(res);
-    });
-  }
-);
+// Blog.update(
+//   { author: "wsf" },
+//   { title: "blog title" },
+//   { multi: true },
+//   err => {
+//     if (err) {
+//       console.log("更新失败");
+//       return;
+//     }
+//     Blog.find((err, res) => {
+//       if (err) {
+//         console.log("查询失败");
+//         return;
+//       }
+//       console.log(res);
+//     });
+//   }
+// );
