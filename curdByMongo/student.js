@@ -1,7 +1,4 @@
-const fs = require("fs");
-const path = require("path");
-var _ = require("lodash");
-
+const _ = require("lodash");
 const mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost/students", { useNewUrlParser: true });
 const Schema = mongoose.Schema;
@@ -19,13 +16,6 @@ var Student = mongoose.model("Student", studentSchema);
  */
 
 exports.getAll = callback => {
-  // fs.readFile(path.resolve(__dirname, "./db.json"), (err, data) => {
-  //   if (err) {
-  //     callback("Server error", []);
-  //     return;
-  //   }
-  //   callback("", JSON.parse(data.toString()).students);
-  // });
   Student.find((err, res) => {
     if (err) {
       callback("查找失败", []);
@@ -36,17 +26,6 @@ exports.getAll = callback => {
 };
 
 exports.query = (id, callback) => {
-  // fs.readFile(path.resolve(__dirname, "./db.json"), (err, data) => {
-  //   if (err) {
-  //     callback("Server error", {});
-  //     return;
-  //   }
-  //   const dataObj = JSON.parse(data.toString());
-  //   const index = _.findIndex(dataObj.students, o => {
-  //     return o.id == id;
-  //   });
-  //   callback("", dataObj.students[index]);
-  // });
   Student.findOne({ id: id }, (err, res) => {
     if (err) {
       callback("查找失败", {});
@@ -60,31 +39,6 @@ exports.query = (id, callback) => {
  * add students
  */
 exports.add = (student, callback) => {
-  // fs.readFile(path.resolve(__dirname, "./db.json"), (err, data) => {
-  //   if (err) {
-  //     callback("Server error", "");
-  //     return;
-  //   }
-  //   const dataObj = JSON.parse(data.toString());
-  //   const maxIndex =
-  //     dataObj.students.length > 0 ? _.maxBy(dataObj.students, "id").id : 0;
-  //   dataObj.students.push({
-  //     ...student,
-  //     id: maxIndex + 1
-  //   });
-  //   fs.writeFile(
-  //     path.resolve(__dirname, "./db.json"),
-  //     JSON.stringify(dataObj),
-  //     err => {
-  //       if (err) {
-  //         callback("保存失败", "");
-  //         return;
-  //       }
-  //       callback("", "保存成功！");
-  //     }
-  //   );
-  // });
-
   Student.find((err, res) => {
     if (err) {
       callback("查找失败", "");
@@ -112,32 +66,6 @@ exports.add = (student, callback) => {
  * update students
  */
 exports.update = (id, student, callback) => {
-  // fs.readFile(path.resolve(__dirname, "./db.json"), (err, data) => {
-  //   if (err) {
-  //     callback("Server error", "");
-  //     return;
-  //   }
-  //   const dataObj = JSON.parse(data.toString());
-  //   const index = _.findIndex(dataObj.students, o => {
-  //     return o.id == id;
-  //   });
-  //   dataObj.students[index] = {
-  //     ...student,
-  //     id: id
-  //   };
-  //   fs.writeFile(
-  //     path.resolve(__dirname, "./db.json"),
-  //     JSON.stringify(dataObj),
-  //     err => {
-  //       if (err) {
-  //         callback("更新失败", "");
-  //         return;
-  //       }
-  //       callback("", "更新成功！");
-  //     }
-  //   );
-  // });
-
   Student.update(
     { id: id },
     {
@@ -160,27 +88,6 @@ exports.update = (id, student, callback) => {
  * delete student
  */
 exports.delete = (id, callback) => {
-  // fs.readFile(path.resolve(__dirname, "./db.json"), (err, data) => {
-  //   if (err) {
-  //     callback("Server error", "");
-  //     return;
-  //   }
-  //   const dataObj = JSON.parse(data.toString());
-  //   _.remove(dataObj.students, o => {
-  //     return o.id == id;
-  //   });
-  //   fs.writeFile(
-  //     path.resolve(__dirname, "./db.json"),
-  //     JSON.stringify(dataObj),
-  //     err => {
-  //       if (err) {
-  //         callback("删除失败", "");
-  //         return;
-  //       }
-  //       callback("", "删除成功！");
-  //     }
-  //   );
-  // });
   Student.remove({ id: id }, err => {
     if (err) {
       callback("删除失败", "");

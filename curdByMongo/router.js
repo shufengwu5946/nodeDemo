@@ -25,8 +25,6 @@ router.get("/students/new", (req, res) => {
   res.render("new.html");
 });
 router.post("/students/new", (req, res) => {
-  console.log(req.body);
-
   add(req.body, (err, data) => {
     if (err) {
       res.send(err);
