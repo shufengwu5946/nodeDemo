@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" href="/public/img/favicon.ico" />
+
+    <title>Express Dashboard</title>
+
+    <!-- Bootstrap core CSS -->
+    <link
+      href="/node_modules/bootstrap/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Custom styles for this template -->
+    <link href="/public/css/dashboard.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <main role="main" class="col-md-9 col-lg-10 pt-3 px-4">
+          <div
+            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom"
+          >
+            <h1 class="h2">编辑 Student</h1>
+            <!-- <div class="btn-toolbar mb-2 mb-md-0">
+              <div class="btn-group mr-2">
+                <button class="btn btn-sm btn-outline-secondary">Share</button>
+                <button class="btn btn-sm btn-outline-secondary">Export</button>
+              </div>
+              <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                <span data-feather="calendar"></span>
+                This week
+              </button>
+            </div> -->
+          </div>
+          <form action="/students/edit" method="POST">
+            <input type="hidden" name="id" value="{{ id }}" />
+            <div class="form-group">
+              <label for="exampleInputEmail1">姓名</label>
+              <input
+                name="name"
+                type="text"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                placeholder="输入姓名"
+                value="{{ name }}"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">性别</label>
+              <br />
+              {{ if gender==1 }}
+              <input
+                type="radio"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                name="gender"
+                value="1"
+                checked
+              />
+
+              {{ else }}
+              <input
+                type="radio"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                name="gender"
+                value="1"
+              />
+              {{ /if }}
+
+              男
+              <br />
+              {{ if gender==1 }}
+              <input
+                type="radio"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                name="gender"
+                value="0"
+              />
+              {{ else }}
+              <input
+                type="radio"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                name="gender"
+                value="0"
+                checked
+              />
+              {{ /if }}
+
+              女
+              <br />
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">年龄</label>
+              <input
+                name="age"
+                type="number"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                min="0"
+                max="100"
+                required
+                value="{{ age }}"
+              />
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">地址</label>
+              <input
+                name="address"
+                type="text"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                placeholder="输入地址"
+                required
+                value="{{ address }}"
+              />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>
