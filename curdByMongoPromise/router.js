@@ -27,7 +27,6 @@ router.get("/students/new", (req, res) => {
 router.post("/students/new", (req, res) => {
   add(req.body)
     .then(data => {
-      console.log(data);
       res.redirect(302, "/students");
     })
     .catch(err => {
