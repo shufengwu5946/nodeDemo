@@ -1,8 +1,8 @@
 const MyPromise = require("./MyPromise");
 new MyPromise((resolve, reject) => {
-  setTimeout(() => {
+  // setTimeout(() => {
     resolve("1111111");
-  }, 0);
+  // }, 0);
 }).then(
   value => {
     console.log(value);
@@ -12,3 +12,5 @@ new MyPromise((resolve, reject) => {
   }
 );
 console.log("after MyPromise");
+
+
