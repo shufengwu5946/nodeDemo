@@ -1,9 +1,11 @@
+/**
+ * 最简
+ */
 const PENDING = "pending";
 const RESOLVED = "resolved";
 const REJECTED = "rejected";
 
 function MyPromise(fn) {
-
   const that = this;
   //   初始状态为pending
   that.state = PENDING;
@@ -12,19 +14,23 @@ function MyPromise(fn) {
   that.rejectedCallbacks = [];
 
   function resolve(value) {
-    if (that.state === PENDING) {
-      that.state = RESOLVED;
-      that.value = value;
-      that.resolvedCallbacks.forEach(cb => cb(that.value));
-    }
+    setTimeout(() => {
+      if (that.state === PENDING) {
+        that.state = RESOLVED;
+        that.value = value;
+        that.resolvedCallbacks.forEach(cb => cb(that.value));
+      }
+    }, 0);
   }
 
   function reject(value) {
-    if (that.state === PENDING) {
-      that.state = REJECTED;
-      that.value = value;
-      that.rejectedCallbacks.forEach(cb => cb(that.value));
-    }
+    setTimeout(() => {
+      if (that.state === PENDING) {
+        that.state = REJECTED;
+        that.value = value;
+        that.rejectedCallbacks.forEach(cb => cb(that.value));
+      }
+    }, 0);
   }
 
   try {

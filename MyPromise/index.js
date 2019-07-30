@@ -1,7 +1,7 @@
-const MyPromise = require("./MyPromise");
+const MyPromise = require("./MyPromise3");
 new MyPromise((resolve, reject) => {
   // setTimeout(() => {
-    resolve("1111111");
+  resolve("1111111");
   // }, 0);
 }).then(
   value => {
@@ -12,5 +12,3 @@ new MyPromise((resolve, reject) => {
   }
 );
 console.log("after MyPromise");
-
-
