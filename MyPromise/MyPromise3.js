@@ -7,15 +7,16 @@ const REJECTED = "rejected";
 class MyPromise {
   constructor(fn) {
     this.state = PENDING;
-    this.value = null;
+    this.resolveValue = null;
+    this.rejectValue = null;
     this.resolveCallbacks = [];
     this.rejectCallbacks = [];
     this.resolve = value => {
       setTimeout(() => {
         if (this.state === PENDING) {
           this.state = RESOLVED;
-          this.value = value;
-          this.resolveCallbacks.forEach(cb => cb(this.value));
+          this.resolveValue = value;
+          this.resolveCallbacks.forEach(cb => cb(this.resolveValue));
         }
       }, 0);
     };
@@ -23,11 +24,12 @@ class MyPromise {
       setTimeout(() => {
         if (this.state === PENDING) {
           this.state = REJECTED;
-          this.value = value;
-          this.rejectCallbacks.forEach(cb => cb(this.value));
+          this.rejectValue = value;
+          this.rejectCallbacks.forEach(cb => cb(this.rejectValue));
         }
       }, 0);
     };
+
     try {
       fn(this.resolve, this.reject);
     } catch (e) {
@@ -36,6 +38,7 @@ class MyPromise {
   }
 
   then(onResolved, onRejected) {
+    let promise;
     onResolved = typeof onResolved === "function" ? onResolved : v => v;
     onRejected =
       typeof onRejected === "function"
@@ -46,13 +49,10 @@ class MyPromise {
     if (this.state === PENDING) {
       this.resolveCallbacks.push(onResolved);
       this.rejectCallbacks.push(onRejected);
-    }
-    if (this.state === RESOLVED) {
-      onResolved(this.value);
-    }
-
-    if (this.state === REJECTED) {
-      onRejected(this.value);
+    } else if (this.state === RESOLVED) {
+      onResolved(this.resolve);
+    } else if (this.state === REJECTED) {
+      onRejected(this.rejectValue);
     }
   }
 }

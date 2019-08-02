@@ -1,14 +1,20 @@
-const MyPromise = require("./MyPromise3");
+const MyPromise = require("./MyPromise");
 new MyPromise((resolve, reject) => {
-  // setTimeout(() => {
-  resolve("1111111");
-  // }, 0);
-}).then(
-  value => {
+  resolve(
+    555
+    // new MyPromise((resolve, reject) => {
+    //   resolve(555);
+    // })
+  );
+})
+  .then()
+  .then(value => {
     console.log(value);
-  },
-  error => {
-    console.log(error);
-  }
-);
+    return new MyPromise((resolve, reject) => {
+      resolve(666);
+    });
+  })
+  .then(value => {
+    console.log(value);
+  });
 console.log("after MyPromise");
